@@ -13,4 +13,9 @@ Gem::Specification.new do |s|
   s.license       = "MIT"
   s.files         = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE"]
   s.require_paths = ["lib"]
+
+  s.add_dependency('bitcoin-secp256k1')
+  s.add_dependency('eth')
+  s.add_dependency('digest-sha3')
+  s.add_dependency('activesupport')
 end

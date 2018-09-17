@@ -1,53 +1,22 @@
+require 'active_support'
 require 'base64'
 require 'openssl'
-require_relative './prs_bot/client'
+require 'digest/sha3'
+require 'eth'
+require 'bitcoin-secp256k1'
+require_relative './prs_bot/auth'
+require_relative './prs_bot/api'
 
 module PrsBot
   class<< self
     attr_accessor :keystore, :password
   end
 
-  def get_auth_header(options={})
-    #code
+  def self.api
+    @api ||= PrsBot::API.new
   end
 
-  def sign_file(content, options={})
-    #code
-  end
-
-  def sign_file_viaKey(content, options={})
-    #code
-  end
-
-  def sign_image(file, options={})
-    #code
-  end
-
-  def sign_text(text, options={})
-    #code
-  end
-
-  def get_auth_signature(path, payload, options={})
-    #code
-  end
-
-  def roll_object(object)
-    #code
-  end
-
-  def get_pub_address_by_sig_and_msghash(sig, msghash, options={})
-    #code
-  end
-
-  def keccak256(message)
-    #code
-  end
-
-  def sha256(string)
-    #code
-  end
-
-  def create_key_pair(options={})
-    #code
+  def self.auth
+    @auth ||= PrsBot::Auth.new
   end
 end
