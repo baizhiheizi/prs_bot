@@ -1,3 +1,7 @@
+> !!!
+> **Not Finished Yet**
+> **未完成**
+
 # PrsBot
 
 An Unofficial API wrapper of [PressOne](https://press.one) in Ruby.

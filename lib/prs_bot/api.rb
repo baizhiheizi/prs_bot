@@ -6,12 +6,12 @@ module PrsBot
       @client = Client.new
     end
 
-    def user_profile(address)
+    def get_user_profile(address)
       path = format('api/users/%s', address)
       client.get(path)
     end
 
-    def user_feed(address, options={})
+    def get_user_feed(address, options={})
       options = options.with_indifferent_access
 
       offset = options['offset']
@@ -21,18 +21,33 @@ module PrsBot
       client.get(path)
     end
 
-    def user_subscription(address)
+    def get_user_subscription(address)
       path = format('api/users/%s/subscription', address)
       client.get(path)
     end
 
-    def filesign(msghash, options={})
+    def get_filesign(msghash, options={})
       options = options.with_indifferent_access
 
       rewarders_limit = options['rewarders_limit'] || ''
       with_user = options['with_user'] || true
       path = format('api/filesign/%s?rewardersLimit=%s&withUser=%s', msghash, rewarders_limit, with_user)
       client.get(path)
+    end
+
+    def create_app(config, options={})
+      config = config.with_indifferent_access
+      options = options.with_indifferent_access
+
+      payload = {
+        name:        config['name'],
+        description: config['description'],
+        url:         config['url'],
+        logo:        config['logo']
+      }
+
+      path = '/api/apps/'
+      client.post(path, headers: PrsBot.auth.get_auth_header(path, payload, options), json: payload)
     end
   end
 end

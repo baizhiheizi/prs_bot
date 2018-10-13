@@ -1,11 +1,11 @@
-require 'active_support'
-require 'base64'
-require 'openssl'
-require 'digest/sha3'
+require 'http'
+require 'active_support/all'
+require 'ecdsa'
 require 'eth'
-require 'bitcoin-secp256k1'
 require_relative './prs_bot/auth'
 require_relative './prs_bot/api'
+require_relative './prs_bot/client'
+require_relative './prs_bot/errors'
 
 module PrsBot
   class<< self
@@ -13,10 +13,10 @@ module PrsBot
   end
 
   def self.api
-    @api ||= PrsBot::API.new
+    @api ||= PrsBot::API.new(options={})
   end
 
   def self.auth
-    @auth ||= PrsBot::Auth.new
+    @auth ||= PrsBot::Auth.new(options={})
   end
 end
