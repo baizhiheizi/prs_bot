@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.license       = "MIT"
   s.files         = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE"]
   s.require_paths = ["lib"]
-  s.executables   = ['setup']
 
   s.add_dependency('http')
   s.add_dependency('schmooze')

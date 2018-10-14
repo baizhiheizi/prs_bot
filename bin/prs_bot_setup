@@ -1,5 +1,0 @@
-#!/bin/bash
-
-pushd lib/prs_bot/sdk
-npm install
-popd

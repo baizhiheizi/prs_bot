@@ -12,6 +12,10 @@ module PrsBot
     attr_accessor :keystore, :password
   end
 
+  def setup
+    `cd  && npm install`
+  end
+
   def self.api
     @api ||= PrsBot::API.new(options={})
   end

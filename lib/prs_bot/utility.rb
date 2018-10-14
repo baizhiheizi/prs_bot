@@ -1,13 +1,18 @@
 module PrsBot
   class Utility
-    attr_reader :keystore, :password, :utility
+    attr_reader :keystore, :password, :utility, :sdk_path
 
     def initialize(options={})
       options = options.with_indifferent_access
 
       @keystore = options['keystore'] || PrsBot.keystore
       @password = options['password'] || PrsBot.password
-      @utility = UtilitySchmoozer.new(File.join(__dir__, 'sdk'))
+      @sdk_path = File.join(__dir__, 'sdk')
+      @utility = UtilitySchmoozer.new @sdk_path
+    end
+
+    def setup
+      `cd #{sdk_path} && npm i`
     end
 
     def get_auth_header(path=nil, payload={})
