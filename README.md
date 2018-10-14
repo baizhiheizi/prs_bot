@@ -4,7 +4,7 @@
 
 # PrsBot
 
-An Unofficial API wrapper of [PressOne](https://press.one) in Ruby.
+An Unofficial SDK of [PressOne](https://press.one) in Ruby.
 
 ## Install
 
