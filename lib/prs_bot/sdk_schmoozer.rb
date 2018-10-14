@@ -1,6 +1,6 @@
 module PrsBot
-  class UtilitySchmoozer < Schmooze::Base
-    dependencies utility: './utility'
+  class SdkSchmoozer < Schmooze::Base
+    dependencies utility: 'pressone-sdk/utility'
 
     method :getAuthHeader, 'utility.getAuthHeader'
     method :signFile, 'utility.signFile'
