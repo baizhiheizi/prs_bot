@@ -1,8 +1,6 @@
-> !!!
+> !!!Notice: **Not Finished Yet**
 >
-> **Not Finished Yet**
->
-> **未完成**
+> !!注意: **未完成**
 
 # PrsBot
 
@@ -24,14 +22,28 @@ $ bundle
 
 ## Requirements
 
+For now, PrsBot use Javascript libs [elliptic](https://github.com/indutny/elliptic) and [keythereum](https://github.com/ethereumjs/keythereum) for the main algorithm. So some node_modules are required.
+
 - nodejs
 - [elliptic](https://github.com/indutny/elliptic)
 - [keythereum](https://github.com/ethereumjs/keythereum)
 
-Install dependencies in your project
+Your may install the dependencies in your project. Just add a `package.json` in your project, like
 
 ```
-npm install git://git@github.com:Press-One/Third-Party-APP-SDK.git
+{
+  "name": "prs_bot",
+  "dependencies": {
+    "keythereum": "^1.0.2",
+    "elliptic": "^6.4.0"
+  }
+}
+```
+
+then run
+
+```
+$ npm install
 ```
 
 ## Usage
