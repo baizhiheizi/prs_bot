@@ -46,8 +46,8 @@ module PrsBot
         logo:        config['logo']
       }
 
-      path = '/api/apps/'
-      client.post(path, headers: PrsBot.utility.get_auth_header(path, payload), json: payload)
+      path = 'api/apps/'
+      client.post(path, headers: PrsBot.utility.get_auth_header('/apps', payload), json: payload)
     end
   end
 end

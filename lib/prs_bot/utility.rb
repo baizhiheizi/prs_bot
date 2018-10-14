@@ -1,69 +1,97 @@
 module PrsBot
   class Utility
-    attr_reader :keystore, :password, :utility
+    attr_reader :keystore, :password, :utility_schmoozer
 
     def initialize(options={})
       options = options.with_indifferent_access
 
       @keystore = options['keystore'] || PrsBot.keystore
       @password = options['password'] || PrsBot.password
-      @utility = SdkSchmoozer.new options['dependencies_path'] || PrsBot.dependencies_path
+      @utility_schmoozer = UtilitySchmoozer.new options['dependencies_path'] || PrsBot.dependencies_path
     end
 
     def get_auth_header(path=nil, payload={})
-      payload = payload.with_indifferent_access
+      address = JSON.parse(keystore)['address']
+      message = roll_object({ 'path': path, 'payload': payload }).to_json
+      sig_obj = sign message
+      sig = sig_obj[:sig]
+      msghash = res[:msghash]
+      {
+        'Content-Type':     'application/json',
+        'X-Po-Auth-Address': address,
+        'X-Po-Auth-Sig':     sig,
+        'X-Po-Auth-Msghash': msghash,
+      }
+    end
 
-      utility.getAuthHeader path, payload, keystore, password
+    def sign(message)
+      msghash = keccak256 message
+
+      signature = sign_by_schmoozer msghash
+      combined_hex = signature["r"] + signature["s"] + signature["recoveryParam"]
+
+      { sig: combined_hex, msghash: msghash }
     end
 
     def sign_file(content)
-      options = options.with_indifferent_access
-
-      utility.signFile content, keystore, password
+      # TODO:
     end
 
     def sign_file_via_key(content, privatekey)
-      utility.signFileViaKey content, privatekey
+      # TODO:
     end
 
     def sign_image(file, privatekey)
-      utility.signImage file, privatekey
+      # TODO:
     end
 
     def sign_text(text)
-      utility.signText text, keystore, password
+      sign text
     end
 
     def get_auth_signature(path, payload)
-      payload = payload.with_indifferent_access
-
-      utility.getAuthSignature path, payload, keystore, password
+      # TODO:
     end
 
     def roll_object(object)
-      utility.rollObject object
+      if object.class == Hash
+        result = []
+        object.each do |key, value|
+          value = roll_object(value)
+          hash = {}
+          hash[key] = value
+          result << hash
+        end
+      else
+        result = object
+      end
+
+      result
     end
 
     def get_pub_address_by_sig_and_msghash(sig, msghash)
-      utility.getPubaddressBySigAndMsghash sig, msghash
+      # TODO:
     end
 
     def keccak256(message)
-      utility.keccak256 message
+      msg_hex = Eth::Utils.keccak256 message
+      return Eth::Utils.bin_to_hex msg_hex
     end
 
     def sha256(string)
-      utility.sha256 string
+      # TODO:
     end
 
     def random_string(count)
-      utility.randomString count
+      # TODO:
     end
 
     def create_key_pair(options={})
-      options = options.with_indifferent_access
+      # TODO:
+    end
 
-      utility.createKeyPair(options)
+    def sign_by_schmoozer(msghash, options={})
+      utility_schmoozer.sign(msghash, password, keystore)
     end
   end
 end

@@ -25,8 +25,8 @@ $ bundle
 ## Requirements
 
 - nodejs
-
-- [PRESS.one-SDK](https://github.com/Press-One/Third-Party-APP-SDK)
+- [elliptic](https://github.com/indutny/elliptic)
+- [keythereum](https://github.com/ethereumjs/keythereum)
 
 Install dependencies in your project
 
@@ -43,6 +43,7 @@ Config your PrsBot first:
 ```
 PrsBot.keystore = 'your keystore'
 PrsBot.password = 'your password'
+PrsBot.dependencies_path = 'your dependencies(node_modules) path'
 ```
 
 If you are in a rails project, you may put your `keystore` & `password` in the `application.yml`, and config in the `config/initializers/prs_bot.rb`, like
@@ -50,6 +51,7 @@ If you are in a rails project, you may put your `keystore` & `password` in the `
 ```
 PrsBot.keystore = Figaro.env.PRS_KEYSTORE
 PrsBot.password = Figaro.env.PRS_PASSWORD
+PrsBot.dependencies_path = Rails.root
 ```
 
 Then, you can use the PrsBot APIs, such as:
