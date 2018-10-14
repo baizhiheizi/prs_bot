@@ -47,7 +47,7 @@ module PrsBot
       }
 
       path = '/api/apps/'
-      client.post(path, headers: PrsBot.utility.get_auth_header(path, payload, options), json: payload)
+      client.post(path, headers: PrsBot.utility.get_auth_header(path, payload), json: payload)
     end
   end
 end
