@@ -3,3 +3,6 @@
 *.log
 _keystore.json
 _password.txt
+node_modules
+package.json
+package-lock.json

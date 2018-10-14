@@ -16,5 +16,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency('http')
   s.add_dependency('schmooze')
+  s.add_dependency('eth')
   s.add_dependency('activesupport')
 end
