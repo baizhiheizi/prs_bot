@@ -2,96 +2,56 @@ module PrsBot
   class Utility
     attr_reader :keystore, :password, :utility_schmoozer
 
-    def initialize(options={})
-      options = options.with_indifferent_access
-
-      @keystore = options['keystore'] || PrsBot.keystore
-      @password = options['password'] || PrsBot.password
-      @utility_schmoozer = UtilitySchmoozer.new options['dependencies_path'] || PrsBot.dependencies_path
+    def initialize(dependencies_path='./node_modules')
+      @utility = UtilitySchmoozer.new dependencies_path || PrsBot.dependencies_path
     end
 
-    def get_auth_header(path=nil, payload={})
-      address = JSON.parse(keystore)['address']
-      message = roll_object({ 'path': path, 'payload': payload }).to_json
-      sig_obj = sign message
-      sig = sig_obj[:sig]
-      msghash = res[:msghash]
-      {
-        'Content-Type':     'application/json',
-        'X-Po-Auth-Address': address,
-        'X-Po-Auth-Sig':     sig,
-        'X-Po-Auth-Msghash': msghash,
-      }
+    def get_pubaddress_by_sig_and_msghash
+      @utility.getPubaddressBySigAndMsghash(sig, msghash)
     end
-
-    def sign(message)
-      msghash = keccak256 message
-
-      signature = sign_by_schmoozer msghash
-      combined_hex = signature["r"] + signature["s"] + signature["recoveryParam"]
-
-      { sig: combined_hex, msghash: msghash }
-    end
-
-    def sign_file(content)
-      # TODO:
-    end
-
-    def sign_file_via_key(content, privatekey)
-      # TODO:
-    end
-
-    def sign_image(file, privatekey)
-      # TODO:
-    end
-
-    def sign_text(text)
-      sign text
-    end
-
-    def get_auth_signature(path, payload)
-      # TODO:
-    end
-
-    def roll_object(object)
-      if object.class == Hash
-        result = []
-        object.each do |key, value|
-          value = roll_object(value)
-          hash = {}
-          hash[key] = value
-          result << hash
-        end
-      else
-        result = object
-      end
-
-      result
-    end
-
-    def get_pub_address_by_sig_and_msghash(sig, msghash)
-      # TODO:
-    end
-
+    
     def keccak256(message)
-      msg_hex = Eth::Utils.keccak256 message
-      return Eth::Utils.bin_to_hex msg_hex
+      @utility.keccak256(message)
     end
-
+    
     def sha256(string)
-      # TODO:
+      @utility.sha256(string)
     end
-
-    def random_string(count)
-      # TODO:
-    end
-
+    
     def create_key_pair(options={})
-      # TODO:
+      @utility.createKeyPair(string)
+    end
+    
+    def hash_password(email, password)
+      @utility.hashPassword(email, password)
+    end
+    
+    def recover_private_key(keystore, password)
+      @utility.recoverPrivateKey(keystore, password)
     end
 
-    def sign_by_schmoozer(msghash, options={})
-      utility_schmoozer.sign(msghash, password, keystore)
+    def get_auth_header(path=nil, payload={}, privateKey)
+      @utility.getAuthHeader(path, payload, privateKey)
+    end
+
+    def sign_block_data(data, privateKey)
+      @utility.signBlockData(data, privateKey)
+    end
+
+    def sign_to_pub_address(msghash, sig)
+      @utility.signToPubAddress(msghash, sig)
+    end
+    
+    def private_key_to_address(privateKey)
+      @utility.privateKeyToAddress(privateKey)
+    end
+    
+    def hash_by_file_reader(file, progressCallback)
+      @utility.hashByFileReader(file, progressCallback)
+    end
+
+    def hash_by_readable_stream(stream)
+      @utility.hashByReadableStream(stream)
     end
   end
 end

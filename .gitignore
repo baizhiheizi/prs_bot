@@ -4,5 +4,5 @@
 _keystore.json
 _password.txt
 node_modules
-package.json
 package-lock.json
+yarn.lock
