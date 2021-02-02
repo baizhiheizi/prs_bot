@@ -2,7 +2,15 @@
 
 require_relative "prs_bot/version"
 
+# Include #api & #utility
 module PrsBot
-  class Error < StandardError; end
-  # Your code goes here...
+  class PrsBotError < StandardError; end
+
+  def self.api
+    @api ||= PrsBot::API.new
+  end
+
+  def self.utility
+    @utility ||= PrsBot::Utility.new
+  end
 end
