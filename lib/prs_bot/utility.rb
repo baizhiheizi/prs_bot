@@ -40,7 +40,7 @@ module PrsBot
       hash_bin = Eth::Utils.hex_to_bin hash
       signature_bin = Eth::Utils.hex_to_bin(signature).bytes.rotate(-1).pack("c*")
       public_hex = Eth::OpenSsl.recover_compact hash_bin, signature_bin
-      raise "Failed to recover" unless public_hex
+      raise PrsBotError.new("Failed to recover") unless public_hex
 
       address = Eth::Utils.public_key_to_address public_hex
       Eth::Utils.remove_hex_prefix(address).downcase
@@ -62,14 +62,14 @@ module PrsBot
         when "sha256"
           sha256 message
         else
-          raise "#{alg} is not supported!"
+          raise PrsBotError.new("#{alg} is not supported!")
         end
 
       [sign_hash(hash, private_key), hash]
     end
 
     def sign_block_data(data, private_key, alg: "keccak256")
-      raise "Not a hash data" unless data.is_a? Hash
+      raise PrsBotError.new("Not a hash data") unless data.is_a? Hash
 
       hash =
         case alg
@@ -78,7 +78,7 @@ module PrsBot
         when "sha256"
           sha256 sort_hash(data)
         else
-          raise "#{alg} is not supported!"
+          raise PrsBotError.new("#{alg} is not supported!")
         end
 
       [sign_hash(hash, private_key), hash]
