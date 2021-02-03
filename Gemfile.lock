@@ -2,12 +2,26 @@ PATH
   remote: .
   specs:
     prs_bot (0.1.0)
+      eth (~> 0.4.12)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    digest-sha3-patched (1.1.1)
+    eth (0.4.12)
+      digest-sha3-patched (~> 1.1)
+      ffi (~> 1.0)
+      money-tree (~> 0.10.0)
+      rlp (~> 0.7.3)
+      scrypt (~> 3.0.6)
+    ffi (1.14.2)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     minitest (5.14.3)
+    money-tree (0.10.0)
+      ffi
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
@@ -15,6 +29,7 @@ GEM
     rake (13.0.3)
     regexp_parser (2.0.3)
     rexml (3.2.4)
+    rlp (0.7.3)
     rubocop (0.93.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -27,10 +42,12 @@ GEM
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
     ruby-progressbar (1.11.0)
+    scrypt (3.0.7)
+      ffi-compiler (>= 1.0, < 2.0)
     unicode-display_width (1.7.0)
 
 PLATFORMS
-  x86_64-darwin-20
+  ruby
 
 DEPENDENCIES
   minitest (~> 5.0)
