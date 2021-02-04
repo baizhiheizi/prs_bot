@@ -8,8 +8,8 @@ require_relative "prs_bot/version"
 module PrsBot
   class PrsBotError < StandardError; end
 
-  def self.api
-    @api ||= PrsBot::API.new
+  def self.api(*args, **kargs)
+    @api ||= PrsBot::API.new(*args, **kargs)
   end
 
   def self.utility
